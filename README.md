@@ -16,9 +16,9 @@ This is discourse among citizens. For this, I chose posts and comments on [Reddi
 **For the purposes of this project, I'm going to examine Elite-to-Citizen discourse.
 
 #### EDA
-One of the features that I explored was differences among the most common words.
-![liberal cloud](https://github.com/christineegan42/capstone/blob/main/facebook/images/lib_cloud.png)     
-![conservative cloud](https://github.com/christineegan42/capstone/blob/main/facebook/images/con_cloud.png)
+One of the features that I explored was differences among the most common words.          
+![liberal cloud](https://github.com/christineegan42/capstone/blob/main/facebook/images/lib_cloud.png)             
+![conservative cloud](https://github.com/christineegan42/capstone/blob/main/facebook/images/con_cloud.png)       
 
 #### Model Results
 ##### Facebook Data: Liberal or Conservative?
