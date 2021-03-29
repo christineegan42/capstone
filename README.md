@@ -19,8 +19,7 @@ This is discourse among citizens. For this, I chose posts and comments on [Reddi
 2. Basic EDA
 
 ##### Reddit
-1. LDA
-2. Basic EDA
+*Results Pending*
 
 #### Model Results
 ##### Experiment 1 - Facebook Data: Liberal or Conservative?
@@ -42,9 +41,11 @@ This is discourse among citizens. For this, I chose posts and comments on [Reddi
 | Liberal     | Republican    |   
 | DemocraticSocialism   | Republicans   |          
 
-**Methodology:**    
-(Label Notebook, Model Script)   
-**Results** *Pending*
+**Methodology:**      
+*Pending*
+
+**Results**    
+*Pending*
 
 ##### Experiment 3 - Facebook/Reddit Data: Elite-to-Citizen  or Citizen?
 **Data**: I combined the data from the sources in Experiment 1 and Experiment 2. A post was labeled as Elite-to-Citizen if it was a Facebook ad and Citizen if it was a Reddit post. 
