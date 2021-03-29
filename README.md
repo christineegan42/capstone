@@ -18,7 +18,12 @@ This is discourse among citizens. For this, I chose posts and comments on [Reddi
 #### EDA
 One of the features that I explored was differences among the most common words.          
 ![liberal cloud](https://github.com/christineegan42/capstone/blob/main/facebook/images/lib_cloud.png)             
-![conservative cloud](https://github.com/christineegan42/capstone/blob/main/facebook/images/con_cloud.png)       
+![conservative cloud](https://github.com/christineegan42/capstone/blob/main/facebook/images/con_cloud.png) 
+
+There were three observations I made regarding the most common words.     
+1. Both sides mention each other frequently.     
+2. Notable words in the liberal data are: 'care', 'grassroots', and 'protect', 'change'      
+3. Notable words in the conservative data are: 'Trump', 'save', 'country', 'patriot'      
 
 #### Model Results
 ##### Facebook Data: Liberal or Conservative?
