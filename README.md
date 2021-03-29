@@ -27,7 +27,7 @@ This is discourse among citizens. For this, I chose posts and comments on [Reddi
 **Data:** [Propublica Facebook Political Ad Data](https://www.propublica.org/datastore/dataset/political-advertisements-from-facebook)          
 **Methodology:**    
 (Label Notebook, Model Script)          
-**Summary**: The original data from Propublica had over 200k rows. I filtered the data to include only those rows with a 'paid_for_by' value occured over 100 times, which resulted in about 200 unique payers. The research that I outline in the **Label Notebook** describes the process that I used to research and label the political affiliation of the payers. I created a feature called 'label' that reflected the political affiliation, then took a sample of 5,000 from each label (liberal and conservative). I processed these observations, then I fit three different models, Logistic Regression, Niave Bayes, and Support Vector Classifier and performed a test for three diffferent training sizes on each (0.2, 0.4, 0.6).       
+**Summary**: The original data from Propublica had over 200k rows. I filtered the data to include only those rows with a 'paid_for_by' value occurred over 100 times, which resulted in about 200 unique payers. The research that I outline in the **Label Notebook** describes the process that I used to research and label the political affiliation of the payers. I created a feature called 'label' that reflected the political affiliation, then took a sample of 5,000 from each label (liberal and conservative). I processed these observations, then I fit three different models, Logistic Regression, Naive Bayes, and Support Vector Classifier and performed a test for three different training sizes on each (0.2, 0.4, 0.6).       
 **Results** Of the three different models, Niave Bayes performed the best overall. 
 
 
@@ -53,6 +53,6 @@ This is discourse among citizens. For this, I chose posts and comments on [Reddi
 *pending*
 
 #### Future Work
-* Developing a model that focuses more pricisely on languge that lends itself to certain frames. I plan to achieve this using Name Entitly Recognition and POS tagging to identify patterns nouns and verbs and how that intersects lexical items and their associated frames.
-* Applying this experiement to social media data from other platforms.
+* Developing a model that focuses more precisely on language that lends itself to certain frames. I plan to achieve this using Name Entity Recognition and POS tagging to identify patterns nouns and verbs and how that intersects lexical items and their associated frames.
+* Applying this experiment to social media data from other platforms.
 * Investigating the relationship between the ad target demographics and the content of the ad. 
