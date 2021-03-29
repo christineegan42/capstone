@@ -1,7 +1,7 @@
 # # Politics, Polarization, and Pragmatics
 ## An investigation into the effect of language on discourse.
 
-In this blog, I describe my thoughts on why politics in the United States have become so polarized. While I suggested different reasons why this might be the case and how that relates to how we use technology to influence others, I decided that there was one factor that was being ignored that I wanted to investigate. This factor was the relationship between language and political persusion, and how liberals and conservatives use language to influence voters. I wanted to take a closer look at the intersection of language, political polarization, and social media. 
+In this [blog](https://github.com/christineegan42/capstone/blob/main/PoliticalPolarization.md), I describe my thoughts on why politics in the United States have become so polarized. While I suggested different reasons why this might be the case and how that relates to how we use technology to influence others, I decided that there was one factor that was being ignored that I wanted to investigate. This factor was the relationship between language and political persusion, and how liberals and conservatives use language to influence voters. I wanted to take a closer look at the intersection of language, political polarization, and social media. 
 
 ### Hypothesis
 Liberals and conservatives will attempt to use different frames to persuade voters on social media. When we communicate with others using language, we evoke frames that help others understand our message. One way to test this is to examine the kind of language that is being used, and that if the language between liberal and conservative messaging is distinct.
