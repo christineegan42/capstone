@@ -18,9 +18,6 @@ analyzer = SentimentIntensityAnalyzer()
 
 import gensim
 import gensim.corpora as corpora
-from gensim.utils import simple_preprocess
-from gensim.models import CoherenceModel
-
 
 def split_data(data: pd.DataFrame) -> (pd.DataFrame, pd.DataFrame):
     '''A helper function to divide a pd.DataFrame by label, returning
@@ -349,5 +346,18 @@ def plot_word_bar(vocab: pd.DataFrame) -> (None):
     
     fig.show()
     
+    
+def run_lda_model(docs: list, n_topics: int, n_passes: int, n_words: int, 
+                  model_name: str) -> (list):
+    '''Accepts a list of spacy docs and constructs a gensim dictionary and
+    corpus for an LDA (topic) model. The parameters for number of topics,
+    passes and words are applied. Model is returned. 
+    '''
+    dictionary = corpora.Dictionary(docs)
+    corpus = [dictionary.doc2bow(text) for text in docs]
 
+    ldamodel = gensim.models.ldamodel.LdaModel(corpus, num_topics=n_topics, 
+                                               id2word=dictionary, passes=15)
+    ldamodel.save(model_name + '.gensim')
+    return  ldamodel
 
