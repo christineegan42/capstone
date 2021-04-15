@@ -39,15 +39,10 @@ This is discourse among citizens. For this, I chose posts and comments on  [Redd
 ### 4. Model & Results (model.py)
 
 #### I. How to Recreate These Results:
-	**To run the test:**     
+	*To run the test:*     
 	1. Clone the repository, and install requirements.txt.
 	2. Execute src/model.py.
 	3. Check src/results for a time-stamped file of model evaluation results.
-
-
-If the language that liberals and conservatives use in political ads is distinct, a model should be able to classify a political message as liberal or conservative.
-	1. The liberal and conservative data frames are individually processed and vectorized.
-	2. The two data frames are combined and the resulting data set is fit three separate models: Logistic Regression, Naive Bayes, and Support Vector Classifier. Then, each model is evaluated using three different test sizes: 0.2, 0.3, 0.4.
 	
 
 ## II. Findings
