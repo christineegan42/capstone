@@ -21,25 +21,33 @@ This is discourse among citizens. For this, I chose posts and comments on  [Redd
 
 ### 3. Processing
 ##### 	I. Labeling (facebook_labels.ipynb)
-			1. The original data had over 200,000 rows. For the purposes of this analysis, I could get by with a smaller sample. I decided that an ad would be labeled as liberal or conservative based on the political affiliation of the organization named in the ‘paid-by’ column.
-			2. The first filter was to limit the data to only those rows whose payer appears more than one hundred times. This resulted in a data set of approximately 20,000 rows with 200 unique payers.
-			3. I reviewed the list of unique payers and used I used techniques such as Named Entity Recognition to extract organization names/affiliations from the list payers. When I could not use automated techniques to apply labels, conducted research using [OpenSecrets](https://www.opensecrets.org/) to determine the political affiliation of all of the payers. 
-			4. When the affiliation of all the payers was determined, the correct label was applied to each row. I checked the values for a class imbalance and noticed that there were 14,000 rows that were labeled liberal and only approximately 5,000 rows that were labeled conservative.
-			5. To address the class imbalance I under-sampled and used 5,000 observations from each class for my analysis.
+	1. The original data had over 200,000 rows. For the purposes of this analysis, I could get by with a smaller sample. I decided that an ad would be labeled as liberal or conservative based on the political affiliation of the organization named in the ‘paid-by’ column.
+	2. The first filter was to limit the data to only those rows whose payer appears more than one hundred times. This resulted in a data set of approximately 20,000 rows with 200 unique payers.
+	3. I reviewed the list of unique payers and used I used techniques such as Named Entity Recognition to extract organization names/affiliations from the list payers. When I could not use automated techniques to apply labels, conducted research using [OpenSecrets](https://www.opensecrets.org/) to determine the political affiliation of all of the payers. 
+	4. When the affiliation of all the payers was determined, the correct label was applied to each row. I checked the values for a class imbalance and noticed that there were 14,000 rows that were labeled liberal and only approximately 5,000 rows that were labeled conservative.
+	5. To address the class imbalance I under-sampled and used 5,000 observations from each class for my analysis.
 ##### 	II. Feature Engineering (src/vectorize.py)
 	The following steps were performed on the liberal set and the conservative set separately, and combined later during the modeling phase.
-			1. Word Embeddings
-				1. Data from the ‘message’ column was used for the linguistic analysis. HTML and superfluous characters were removed. Then each observation was transformed into a SpaCy document. 
-				2. The new list of documents was then lemmatized, and filtered for digits, punctuation, stop words, and words that are three characters or less.
-				3. Each word was assigned a word-vector using the SpaCy pre-trained model ‘en-web-code-md’.
-				4. The vocabulary was trimmed to words that appear at least ten times. Then, a column was created for each word in the vocabulary. The value of each column was the vector for the word as it appears in that row. 
-			2. Sentiment/Polarity
-				1. The compound polarity for each observation was calculated using Vader Sentiment Intensity Analyzer.
+	1. Word Embeddings
+		1. Data from the ‘message’ column was used for the linguistic analysis. HTML and superfluous characters were removed. Then each observation was transformed into a SpaCy document. 
+		2. The new list of documents was then lemmatized, and filtered for digits, punctuation, stop words, and words that are three characters or less.
+		3. Each word was assigned a word-vector using the SpaCy pre-trained model ‘en-web-code-md’.
+		4. The vocabulary was trimmed to words that appear at least ten times. Then, a column was created for each word in the vocabulary. The value of each column was the vector for the word as it appears in that row. 
+	2. Sentiment/Polarity
+		1. The compound polarity for each observation was calculated using Vader Sentiment Intensity Analyzer.
 
 ### 4. Model & Results (model.py)
+
+#### I. How to Recreate These Results:
+	**To run the test:**     
+	1. Clone the repository, and install requirements.txt.
+	2. Execute src/model.py.
+	3. Check src/results for a time-stamped file of model evaluation results.
+
+
 If the language that liberals and conservatives use in political ads is distinct, a model should be able to classify a political message as liberal or conservative.
-		1. The liberal and conservative data frames are individually processed and vectorized.
-		2. The two data frames are combined and the resulting data set is fit three separate models: Logistic Regression, Naive Bayes, and Support Vector Classifier. Then, each model is evaluated using three different test sizes: 0.2, 0.3, 0.4.
+	1. The liberal and conservative data frames are individually processed and vectorized.
+	2. The two data frames are combined and the resulting data set is fit three separate models: Logistic Regression, Naive Bayes, and Support Vector Classifier. Then, each model is evaluated using three different test sizes: 0.2, 0.3, 0.4.
 	
 
 ## II. Findings
