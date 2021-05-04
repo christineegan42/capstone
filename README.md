@@ -1,64 +1,110 @@
-# Politics, Polarization, & Pragmatics
-**An investigation into the effect of language on discourse.**
+# Facebook Ad Data Text Classification
 
-In this [blog](https://github.com/christineegan42/capstone/blob/main/PoliticalPolarization.md) , I describe my thoughts on why politics in the United States have become so polarized. While I suggested different reasons why this might be the case and how that relates to how we use technology to influence others, I decided that there was one factor that was being ignored that I wanted to investigate. This factor was the relationship between language and political persuasion, and how liberals and conservatives use language to influence voters. I wanted to take a closer look at the intersection of language, political polarization, and social media.
+## I. Introduction
+In this [blog](https://github.com/christineegan42/flatiron-capstone/blob/main/PoliticalPolarization.md) , I describe my thoughts on why politics in the United States have become so polarized. While I suggested different reasons why this might be the case and how that relates to how we use technology to influence others, I decided that there was one factor that I wanted to investigate the relationship between language and political persuasion, and how liberals and conservatives use language to influence voters.
 
-## I. Methodology
+#### Navigate this Repository 
+
+```
+flatiron-capstone
+│ README.md
+└─data
+│  └─processed
+│	  └─labeled
+│        │ fb_5k_lib_lab.csv
+│        │ fb_5k_con_lab.csv
+│        └─vectorized
+│           fb_5k_lib_vec.csv
+│           fb_5k_con_vec.csv
+│           fb_model_data.csv
+└─notebooks
+│  └─labeling
+│  │  labeling.ipynb
+│  └─eda
+│  │ importances_results.ipynb
+│  │ descriptive_stats.ipynb
+│  └─results
+│      model_results.ipynb
+└─src
+│  model.py
+│  vectorize.py
+│  general.py
+│  setup.py
+└─appendix
+│  resources.txt
+│  setup_instructions.txt
+
+```
+
+## II. Methodology
 ### 1. Hypothesis
-Liberals and conservatives will attempt to use different frames to persuade voters on social media. When we communicate with others using language, we evoke frames that help others understand our message. One way to test this is to examine the kind of language that is being used, and that if the language between liberal and conservative messaging is distinct.
+Language in political ad data will be distinct among liberals and conservatives.
 
 ### 2. Data
-I collected my data according to a guiding principle discussed in the paper  [A Nation under Joint Custody:How Conflicting Family Models divide US Politics](https://digitalassets.lib.berkeley.edu/etd/ucb/text/Wehling_berkeley_0028E_13309.pdf) . In the paper, Eva Wheling discusses ‘Elite-to-Citizen’ discourse and ‘Citizen-Discourse’.
+I collected my data according to a guiding principle discussed in the paper [A Nation under Joint Custody:How Conflicting Family Models divide US Politics](https://digitalassets.lib.berkeley.edu/etd/ucb/text/Wehling_berkeley_0028E_13309.pdf) . In the paper, Eva Wheling discusses ‘elite-to-citizen’ discourse which she describes as language used politicians and elites that is directed toward citizens. 
 
-*For the purposes of this project, I’m going to examine Elite-to-Citizen discourse.*
-
-#### Elite-to-Citizen: 
-[ProPublica Data Store](https://www.propublica.org/datastore/dataset/political-advertisements-from-facebook)      
-This is discourse from politicians aimed at the public. For this, I chose a collection of over 200,000 Facebook political ads from 2019-2021 available as a CSV. 
-
-#### Citizen
-This is discourse among citizens. For this, I chose posts and comments on  [Reddit](https://www.reddit.com/)  political forums from 2020-2021. I obtained this data using the Reddit API. For information about how I did that, you can view the code on my  [Github](https://github.com/christineegan42/reddit-calls) . You can also view **this** to see how I processed the data.
+The source I used to obtain examples of elite-to-citizen discourse was a collection of over 200,000 Facebook political ads from 2019-2021 available as a CSV from [ProPublica Data Store](https://www.propublica.org/datastore/dataset/political-advertisements-from-facebook).
 
 ### 3. Processing
-##### 	I. Labeling (facebook_labels.ipynb)
-	1. The original data had over 200,000 rows. For the purposes of this analysis, I could get by with a smaller sample. I decided that an ad would be labeled as liberal or conservative based on the political affiliation of the organization named in the ‘paid-by’ column.
-	2. The first filter was to limit the data to only those rows whose payer appears more than one hundred times. This resulted in a data set of approximately 20,000 rows with 200 unique payers.
-	3. I reviewed the list of unique payers and used I used techniques such as Named Entity Recognition to extract organization names/affiliations from the list payers. When I could not use automated techniques to apply labels, conducted research using [OpenSecrets](https://www.opensecrets.org/) to determine the political affiliation of all of the payers. 
-	4. When the affiliation of all the payers was determined, the correct label was applied to each row. I checked the values for a class imbalance and noticed that there were 14,000 rows that were labeled liberal and only approximately 5,000 rows that were labeled conservative.
-	5. To address the class imbalance I under-sampled and used 5,000 observations from each class for my analysis.
-##### 	II. Feature Engineering (src/vectorize.py)
-	The following steps were performed on the liberal set and the conservative set separately, and combined later during the modeling phase.
-	1. Word Embeddings
-		1. Data from the ‘message’ column was used for the linguistic analysis. HTML and superfluous characters were removed. Then each observation was transformed into a SpaCy document. 
-		2. The new list of documents was then lemmatized, and filtered for digits, punctuation, stop words, and words that are three characters or less.
-		3. Each word was assigned a word-vector using the SpaCy pre-trained model ‘en-web-code-md’.
-		4. The vocabulary was trimmed to words that appear at least ten times. Then, a column was created for each word in the vocabulary. The value of each column was the vector for the word as it appears in that row. 
-	2. Sentiment/Polarity
-		1. The compound polarity for each observation was calculated using Vader Sentiment Intensity Analyzer.
+#### 	I. Labeling (facebook_labels.ipynb)
+The original data had over 200,000 observations. In order to extract a smaller sample I set some parameters as to how I would filter the data.
+1. Data is labeled as liberal or conservative based on the affiliation of the organization that paid for the ad, as represented by the 'paid-by' column. 
+2. Data is limited to only those rows whose payer appears more than one hundred times.
+This resulted in a data set of approximately 20,000 rows with approximately 200 unique payers.
 
-### 4. Model & Results (model.py)
+Next, I reviewed the list of payers and used the following combination of manual and automated techniques to label each ad.
+1. Named entity recognition (NER) with SpaCy was used in order to extract payers with names that included words similar to "Republican" and "Democrat".
+2. Named entity recognition was used to extract the names of any politicans, and label the politicans whose affiliation was known.
+3. Politicans and organizations that could not be labeled using NER were manually researched using [OpenSecrets](https://www.opensecrets.org/) to determine the political affiliation of all of the payers.
+ 
+When the affiliation of all the payers was determined and the correct label was applied to each row, I checked the values for a class imbalance and noticed that there were 14,000 rows that were labeled liberal and only approximately 5,000 rows that were labeled conservative. To address the class imbalance I under-sampled and used 5,000 observations from each class for my analysis.
 
-#### I. How to Recreate These Results:
-	*To run the test:*     
-	1. Clone the repository, and install requirements.txt.
-	2. Execute src/model.py.
-	3. Check src/results for a time-stamped file of model evaluation results.
-	
+#### 	II. Feature Engineering (src/vectorize.py)
+The original ad data from ProPublica had 27 features. Since this analysis was focused on text data from ad messages, after the labeling process all columns except for 'message' and '_label_' were eliminated. 
 
-## II. Findings
+The following steps were performed on the liberal set and the conservative set separately, and combined later during the modeling phase.
+##### Word Embeddings
+1. Data from the ‘message’ column was used for the linguistic analysis. HTML and superfluous characters were removed. Then each observation was transformed into a SpaCy document. 
+2. The new list of documents was then lemmatized, and filtered for digits, punctuation, stop words, and words that are three characters or less.
+3. Each word was assigned a word-vector using the SpaCy pre-trained model ‘en-web-code-md’.
+4. The vocabulary was trimmed to words that appear at least ten times. Then, a column was created for each word in the vocabulary. The value of each column was the mean vector for the word as it appears in that row. 
+##### Sentiment/Polarity
+1. The compound polarity for each observation was calculated using Vader Sentiment Intensity Analyzer.
+        
 
-### Most Common Words
-*(coming soon)*
+### 3. Models
+I fit and tested three different models (Logistic Regression, Niave Bayes, and Support Vector Classifier) to compare their performance, using the following process for each classifier:
+1. A sample of 1,000 observations was loaded from each vectorized dataframe (liberal and conservative) and concatenated to create one dataframe of 2,000 observations for the model.
+2. The data was divded into X and y data, then split into a training and validation set.
+3. The training data was then fit that particular classifier, and evaluated using three different test sizes: 0.2, 0.3, 0.4.
 
-### Most Common Topics
-*(coming soon)*
+Results for each classifier were combined and saved to the /results directory. 
 
-### Most Important Words
-*(coming soon)*
+The process is repeated 10 times, and the results from each trial are combined into a masters results data frame, which is then grouped by classifier and text size. The mean score for all of the evaluation metrics is extracted from each and compared.
 
+#### Results
+| model               |   test size |      f1 |   precision |   recall |   accuracy |   roc_auc |
+|:--------------------|------------:|--------:|------------:|---------:|-----------:|----------:|
+| Gaussian NB         |         0.2 | 9.65259 |     9.94671 |  9.37688 |    9.665   |   9.66357 |
+| Gaussian NB         |         0.3 | 9.56674 |     9.82702 |  9.32119 |    9.575   |   9.5767  |
+| Gaussian NB         |         0.4 | 9.47513 |     9.69629 |  9.26551 |    9.4825  |   9.48414 |
+| Logistic Regression |         0.2 | 6.4213  |     5.9322  |  7.0201  |    6.15    |   6.15433 |
+| Logistic Regression |         0.3 | 6.39771 |     5.95296 |  6.93709 |    6.11167 |   6.10613 |
+| Logistic Regression |         0.4 | 6.3345  |     5.91879 |  6.83623 |    6.05875 |   6.05287 |
+| SVC                 |         0.2 | 6.13127 |     6.12301 |  6.17085 |    6.1825  |   6.18244 |
+| SVC                 |         0.3 | 6.04041 |     6.15965 |  5.98013 |    6.13167 |   6.13268 |
+| SVC                 |         0.4 | 5.99584 |     6.11838 |  5.93052 |    6.09125 |   6.09246 |
+
+The model that performed the best was 
+
+#### Most Important Features
+To retrieve the most important features in this model, I use Sci-Kit Learn Permutation Importance. 
+1. Obtained the results of three models (Logistic Regression, Niave Bayes, and Support Vector Classifier) and selected Niave Bayes because it had the best performance.
+2. Loaded the vectorized data used to create the models. Divided the data by class, and then sampled 1000 observations from each class. 
+3. The data frames were then concatenated and split into X, y data, then into a training and validation set. 
+and fit the data to Sci-Kit Learn Gaussian NB.
 
 ## IV. Future Work
 * The ProPublica Facebook ad data set is very rich. There are still many valuable insights that can be gleaned from further examination of different features in the original data, especially the relationship between the ad target demographics and the content of the ad.
 * Reimagining the model to be more sensitive to framing in language by using Named Entity Recognition and POS tags to identify key nouns and verbs used in the discourse to evoke certain frames to investigate who is evoking which frames. 
 * Extending this model to analyze Citizen discourse using Reddit data and comparing Elite-to-Citizen and Citizen political discourse. In addition, the model could be extended to decipher between Elite-to-Citizen and Citizen discourse.
-
