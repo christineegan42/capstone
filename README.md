@@ -83,26 +83,48 @@ Results for each classifier were combined and saved to the /results directory.
 The process is repeated 10 times, and the results from each trial are combined into a masters results data frame, which is then grouped by classifier and text size. The mean score for all of the evaluation metrics is extracted from each and compared.
 
 #### Results
-| model               |   test size |      f1 |   precision |   recall |   accuracy |   roc_auc |
-|:--------------------|------------:|--------:|------------:|---------:|-----------:|----------:|
-| Gaussian NB         |         0.2 | 9.65259 |     9.94671 |  9.37688 |    9.665   |   9.66357 |
-| Gaussian NB         |         0.3 | 9.56674 |     9.82702 |  9.32119 |    9.575   |   9.5767  |
-| Gaussian NB         |         0.4 | 9.47513 |     9.69629 |  9.26551 |    9.4825  |   9.48414 |
-| Logistic Regression |         0.2 | 6.4213  |     5.9322  |  7.0201  |    6.15    |   6.15433 |
-| Logistic Regression |         0.3 | 6.39771 |     5.95296 |  6.93709 |    6.11167 |   6.10613 |
-| Logistic Regression |         0.4 | 6.3345  |     5.91879 |  6.83623 |    6.05875 |   6.05287 |
-| SVC                 |         0.2 | 6.13127 |     6.12301 |  6.17085 |    6.1825  |   6.18244 |
-| SVC                 |         0.3 | 6.04041 |     6.15965 |  5.98013 |    6.13167 |   6.13268 |
-| SVC                 |         0.4 | 5.99584 |     6.11838 |  5.93052 |    6.09125 |   6.09246 |
+| model               |   test size |      f1 |   precision |   recall |   accuracy |   roc_auc |   mean_score |
+|:--------------------|------------:|--------:|------------:|---------:|-----------:|----------:|-------------:|
+| Gaussian NB         |         0.2 | 9.65259 |     9.94671 |  9.37688 |    9.665   |   9.66357 |      9.66095 |
+| Gaussian NB         |         0.3 | 9.56674 |     9.82702 |  9.32119 |    9.575   |   9.5767  |      9.57333 |
+| Gaussian NB         |         0.4 | 9.47513 |     9.69629 |  9.26551 |    9.4825  |   9.48414 |      9.48071 |
+| Logistic Regression |         0.2 | 6.4213  |     5.9322  |  7.0201  |    6.15    |   6.15433 |      6.33559 |
+| Logistic Regression |         0.3 | 6.39771 |     5.95296 |  6.93709 |    6.11167 |   6.10613 |      6.30111 |
+| Logistic Regression |         0.4 | 6.3345  |     5.91879 |  6.83623 |    6.05875 |   6.05287 |      6.24023 |
+| SVC                 |         0.2 | 6.13127 |     6.12301 |  6.17085 |    6.1825  |   6.18244 |      6.15801 |
+| SVC                 |         0.3 | 6.04041 |     6.15965 |  5.98013 |    6.13167 |   6.13268 |      6.08891 |
+| SVC                 |         0.4 | 5.99584 |     6.11838 |  5.93052 |    6.09125 |   6.09246 |      6.04569 |
 
-The model that performed the best was 
+The model that had the highest mean score was Gaussian Niave Bayes using an 80/20 train/test split. However, special consideration was given with respect to precision because a lot of political language is domain specific and there was bound to be a large vocabulary shared between the classes and there was a high likelyhood that many features might be equally as prevelant among either class. 
+
 
 #### Most Important Features
 To retrieve the most important features in this model, I use Sci-Kit Learn Permutation Importance. 
 1. Obtained the results of three models (Logistic Regression, Niave Bayes, and Support Vector Classifier) and selected Niave Bayes because it had the best performance.
 2. Loaded the vectorized data used to create the models. Divided the data by class, and then sampled 1000 observations from each class. 
-3. The data frames were then concatenated and split into X, y data, then into a training and validation set. 
-and fit the data to Sci-Kit Learn Gaussian NB.
+3. The data frames were then concatenated and split into X, y data, then into a training and validation set, and fit the data to Sci-Kit Learn Gaussian NB.
+4. Then, the permutation importance was calculated for the selected sample of observations and stored.
+5. This process was repeated 10 times, and the results of each test were combined into a master dataframe, and then grouped by feature by calculating the mean of the mean importance for each feature. 
+
+The features with the top-ten highest mean of means:
+| features   |   mean_importance |
+|:-----------|------------------:|
+| debate     |            0.0088 |
+| stage      |            0.0078 |
+| corporate  |            0.0052 |
+| democracy  |            0.005  |
+| qualify    |            0.0047 |
+| mainstream |            0.0044 |
+| media      |            0.0042 |
+| dnc        |            0.0041 |
+| pac        |            0.004  |
+| organize   |            0.0034 |
+
+
+#### Analysis of Top 10 Most Important Features
+
+*(coming soon)*
+
 
 ## IV. Future Work
 * The ProPublica Facebook ad data set is very rich. There are still many valuable insights that can be gleaned from further examination of different features in the original data, especially the relationship between the ad target demographics and the content of the ad.
