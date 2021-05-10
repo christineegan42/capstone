@@ -19,7 +19,7 @@ flatiron-capstone
 │           fb_model_data.csv
 └─notebooks
 │  └─labeling
-│  │  labeling.ipynb
+│  │  fb_labels.ipynb
 │  └─eda
 │  │ importances_results.ipynb
 │  │ descriptive_stats.ipynb
@@ -46,7 +46,7 @@ I collected my data according to a guiding principle discussed in the paper [A N
 The source I used to obtain examples of elite-to-citizen discourse was a collection of over 200,000 Facebook political ads from 2019-2021 available as a CSV from [ProPublica Data Store](https://www.propublica.org/datastore/dataset/political-advertisements-from-facebook).
 
 ### 3. Processing
-#### 	I. Labeling (facebook_labels.ipynb)
+#### 	I. Labeling (fb_labels.ipynb)
 The original data had over 200,000 observations. In order to extract a smaller sample I set some parameters as to how I would filter the data.
 1. Data is labeled as liberal or conservative based on the affiliation of the organization that paid for the ad, as represented by the 'paid-by' column. 
 2. Data is limited to only those rows whose payer appears more than one hundred times.
