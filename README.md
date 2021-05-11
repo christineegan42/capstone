@@ -21,15 +21,13 @@ flatiron-capstone
 │  └─labeling
 │  │  fb_labels.ipynb
 │  └─eda
-│  │ importances_results.ipynb
-│  │ descriptive_stats.ipynb
+│  │ eda_polarity_and_length.ipynb
+│  │ eda.py
 │  └─results
 │      model_results.ipynb
 └─src
 │  model.py
 │  vectorize.py
-│  general.py
-│  setup.py
 └─appendix
 │  resources.txt
 │  setup_instructions.txt
