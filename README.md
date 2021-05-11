@@ -68,7 +68,12 @@ The following steps were performed on the liberal set and the conservative set s
 4. The vocabulary was trimmed to words that appear at least ten times. Then, a column was created for each word in the vocabulary. The value of each column was the mean vector for the word as it appears in that row. 
 ##### Sentiment/Polarity
 1. The compound polarity for each observation was calculated using Vader Sentiment Intensity Analyzer.
-        
+2. Messages were divded into long (length had a z-score > 1) and short (length had a z-score < 1). 
+3. 98.38% of ads are short, 62% of ads are long. 
+4. Of short ads, 50.75% are conservative while 49.25% are liberal. 
+5. Of long ads, 4.32% are conservative and 95.68% are liberal
+6. Longer ads were overwhelmingly liberal and positive.         
+![scatterplot of polarity and length by label](https://github.com/christineegan42/flatiron-capstone/blob/main/appendix/images/pol_len_label.png)        
 
 ### 3. Models
 I fit and tested three different models (Logistic Regression, Niave Bayes, and Support Vector Classifier) to compare their performance, using the following process for each classifier:
