@@ -121,9 +121,8 @@ The features with the top-ten highest mean of means:
 
 
 #### Analysis of Top 10 Most Important Features
-
 *(coming soon)*
-
+![barplot of mean feature importances](https://github.com/christineegan42/flatiron-capstone/blob/main/appendix/images/importances_viz.png)  
 
 ## IV. Future Work
 * The ProPublica Facebook ad data set is very rich. There are still many valuable insights that can be gleaned from further examination of different features in the original data, especially the relationship between the ad target demographics and the content of the ad.
