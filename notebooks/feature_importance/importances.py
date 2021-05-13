@@ -143,3 +143,7 @@ def eval_importances(data, samp_sz, num_iters):
         root_dir = "/Users/christineegan/flatiron-capstone/"
         save_results(root_dir + "importances/imp_results/", results        
     return
+                     
+if __name__ == "__main__":
+    data = pd.read_csv('/Users/christineegan/flatiron-capstone/data/processed/fb_5k/vectorized/fb_model_vec.csv')
+    eval_importances(data, samp_sz, num_iters)
