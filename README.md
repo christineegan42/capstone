@@ -15,8 +15,11 @@ flatiron-capstone
 │  │   eda_polarity_and_length.ipynb
 │  │   eda.py
 │  └─results
-│      master_results.ipynb
-│      results.pu
+│  │   master_results.ipynb
+│  │   results.py
+│  └─feature_importances
+│      feature_importance.ipynb
+│      importances.py
 └─src
 │  model.py
 │  vectorize.py
