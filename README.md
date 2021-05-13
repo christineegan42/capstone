@@ -8,29 +8,22 @@ In this [blog](https://github.com/christineegan42/flatiron-capstone/blob/main/Po
 ```
 flatiron-capstone
 │ README.md
-└─data
-│  └─processed
-│	  └─labeled
-│        │ fb_5k_lib_lab.csv
-│        │ fb_5k_con_lab.csv
-│        └─vectorized
-│           fb_5k_lib_vec.csv
-│           fb_5k_con_vec.csv
-│           fb_model_data.csv
 └─notebooks
 │  └─labeling
-│  │  fb_labels.ipynb
+│  │   fb_labels.ipynb
 │  └─eda
-│  │ eda_polarity_and_length.ipynb
-│  │ eda.py
+│  │   eda_polarity_and_length.ipynb
+│  │   eda.py
 │  └─results
-│      model_results.ipynb
+│      master_results.ipynb
+│      results.pu
 └─src
 │  model.py
 │  vectorize.py
 └─appendix
 │  resources.txt
 │  setup_instructions.txt
+│  images
 
 ```
 
