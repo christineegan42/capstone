@@ -1,9 +1,6 @@
 # Facebook Ad Data Text Classification
 
-## I. Introduction
-In this [blog](https://github.com/christineegan42/flatiron-capstone/blob/main/PoliticalPolarization.md) , I describe my thoughts on why politics in the United States have become so polarized. While I suggested different reasons why this might be the case and how that relates to how we use technology to influence others, I decided that there was one factor that I wanted to investigate the relationship between language and political persuasion, and how liberals and conservatives use language to influence voters.
-
-#### Navigate this Repository 
+## I. Navigate this Repository 
 
 ```
 flatiron-capstone
